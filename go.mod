@@ -1,9 +1,9 @@
-module v2ray.com/core
+module v2ray-ios
 
 go 1.20
 
 require (
-	github.com/v2fly/v2ray-core/v5 v5.11.1
+	github.com/XTLS/Xray-core v1.8.6
 )
 
-replace github.com/v2fly/v2ray-core/v5 => github.com/v2fly/v2ray-core/v5 v5.11.1
+replace github.com/xtls/xray-core => github.com/XTLS/Xray-core v1.8.6
