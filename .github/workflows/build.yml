@@ -5,19 +5,28 @@ on:
 
 jobs:
   build:
+    name: Build for iOS (Mach-O ARM64)
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v4
         with:
-          go-version: 1.22
+          go-version: '1.20'
 
-      - name: Build V2Ray for iOS (arm64 Mach-O)
+      - name: Download v2ray-core
         run: |
-          GOOS=ios GOARCH=arm64 CGO_ENABLED=0 go build -o v2ray-ios ./main.go
+          git clone --depth=1 https://github.com/XTLS/Xray-core.git v2ray-core
+
+      - name: Build binary
+        run: |
+          cd v2ray-core
+          go mod tidy
+          cd ..
+          go build -o v2ray-ios -ldflags="-s -w" ./main.go
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
