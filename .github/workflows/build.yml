@@ -1,0 +1,26 @@
+name: Build V2Ray iOS (a-Shell)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.22
+
+      - name: Build V2Ray for iOS (arm64 Mach-O)
+        run: |
+          GOOS=ios GOARCH=arm64 CGO_ENABLED=0 go build -o v2ray-ios ./main.go
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: v2ray-ios
+          path: v2ray-ios
