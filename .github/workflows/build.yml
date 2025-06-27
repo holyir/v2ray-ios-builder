@@ -1,35 +1,36 @@
-name: Build V2Ray iOS (a-Shell)
+name: Build for iOS (Mach-O ARM64)
 
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    name: Build for iOS (Mach-O ARM64)
+    name: Build binary
     runs-on: ubuntu-latest
+
+    env:
+      GOOS: ios
+      GOARCH: arm64
+      CGO_ENABLED: 0
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
-          go-version: '1.24'
+          go-version: '1.20'
 
-      - name: Download v2ray-core
-        run: |
-          git clone --depth=1 https://github.com/XTLS/Xray-core.git v2ray-core
+      - name: Download dependencies
+        run: go mod tidy
 
-      - name: Build binaty
+      - name: Build binary
         run: |
-          cd v2ray-core
-          go mod tidy
-          cd ..
-          GOOS=ios GOARCH=arm64 CGO_ENABLED=0 go build -o v2ray-ios ./main.go
+          go build -trimpath -ldflags="-s -w" -o v2ray-ios
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: v2ray-ios
-          path: v2ray-ios
+          path: ./v2ray-ios
