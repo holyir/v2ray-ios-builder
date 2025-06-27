@@ -1,16 +1,23 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
 
-	"github.com/xtls/xray-core/main/distro/all"
-	_ "github.com/xtls/xray-core/main/json"
+	"github.com/XTLS/Xray-core/core"
 )
 
 func main() {
-	os.Args = append([]string{"v2ray"}, os.Args[1:]...)
-	if err := all.Execute(); err != nil {
-		log.Fatal(err)
+	fmt.Println("🔧 Starting V2Ray (No-CGO, Pure-Go build)...")
+
+	instance, err := core.New(nil)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "❌ Failed to start: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := instance.Start(); err != nil {
+		fmt.Fprintf(os.Stderr, "❌ Start error: %v\n", err)
+		os.Exit(1)
 	}
 }
