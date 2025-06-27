@@ -1,10 +1,7 @@
-
 module v2ray-ios
 
-go 1.21
+go 1.20
 
-require (
-    v2ray.com/core v4.45.2+incompatible
-)
+require github.com/XTLS/Xray-core v1.8.6
 
-replace v2ray.com/core => github.com/v2fly/v2ray-core v1.7.2
+replace github.com/xtls/xray-core => github.com/XTLS/Xray-core v1.8.6
