@@ -1,16 +1,10 @@
 package main
 
 import (
-	"log"
-	"os"
-
-	"github.com/XTLS/Xray-core/main/distro/all"
-	"github.com/XTLS/Xray-core/main/commands/base"
+	_ "github.com/xtls/xray-core/main/distro/all"
+	"github.com/xtls/xray-core/main"
 )
 
 func main() {
-	if err := all.Run(os.Args); err != nil {
-		log.Fatal(err)
-	}
-	base.Exit()
+	main.Main()
 }
