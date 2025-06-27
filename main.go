@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/xtls/xray-core/main"
+	_ "github.com/xtls/xray-core/main/confloader"
+	"github.com/xtls/xray-core/main/command"
 )
 
 func main() {
