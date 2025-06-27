@@ -7,30 +7,25 @@ jobs:
   build:
     name: Build binary
     runs-on: ubuntu-latest
-
-    env:
-      GOOS: ios
-      GOARCH: arm64
-      CGO_ENABLED: 0
-
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.21'
+          check-latest: true
 
       - name: Download dependencies
         run: go mod tidy
 
       - name: Build binary
         run: |
-          go build -trimpath -ldflags="-s -w" -o v2ray-ios
+          GOOS=darwin GOARCH=arm64 CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o v2ray-ios
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: v2ray-ios
-          path: ./v2ray-ios
+          path: v2ray-ios
