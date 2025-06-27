@@ -1,8 +1,7 @@
 package main
 
 import (
-	"log"
-	"github.com/xtls/xray-core/app/log/command"
+	"github.com/XTLS/Xray-core/main/command"
 )
 
 func main() {
