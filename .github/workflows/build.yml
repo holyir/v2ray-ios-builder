@@ -21,12 +21,12 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/XTLS/Xray-core.git v2ray-core
 
-      - name: Build binary
+      - name: Build binaty
         run: |
           cd v2ray-core
           go mod tidy
           cd ..
-          go build -o v2ray-ios -ldflags="-s -w" ./main.go
+          GOOS=ios GOARCH=arm64 CGO_ENABLED=0 go build -o v2ray-ios ./main.go
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
