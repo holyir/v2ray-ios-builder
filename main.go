@@ -1,18 +1,16 @@
-
 package main
 
 import (
-    "log"
-    "v2ray.com/core"
-    "v2ray.com/core/app/log/command"
-    "v2ray.com/core/common/platform"
+	"log"
+	"os"
+
+	"github.com/xtls/xray-core/main/distro/all"
+	_ "github.com/xtls/xray-core/main/json"
 )
 
 func main() {
-    platform.Init()
-    command.Run()
-    err := core.Main(nil)
-    if err != nil {
-        log.Fatal(err)
-    }
+	os.Args = append([]string{"v2ray"}, os.Args[1:]...)
+	if err := all.Execute(); err != nil {
+		log.Fatal(err)
+	}
 }
